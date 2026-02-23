@@ -11,6 +11,7 @@
         body { font-family: 'Pretendard', sans-serif; }
         .step-content { display: none; }
         .step-content.active { display: block; }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 0.75rem; font-family: monospace; font-size: 0.875rem; margin: 1rem 0; overflow-x: auto; }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased">
@@ -18,16 +19,19 @@
 <div class="max-w-6xl mx-auto px-4 py-12">
     <!-- Header -->
     <header class="text-center mb-16">
+        <div class="inline-flex items-center justify-center p-3 bg-blue-600 text-white rounded-2xl mb-6 shadow-lg shadow-blue-200">
+            <i data-lucide="layout-dashboard" class="w-8 h-8"></i>
+        </div>
         <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Open CLO Roadmap</h1>
         <p class="text-lg text-slate-600">윈도우 랩탑에서 리눅스 AI 에이전트 구축까지의 전 과정</p>
     </header>
 
-    <div class="flex flex-col lg:flex-row gap-8 bg-white rounded-3xl shadow-2xl overflow-hidden min-h-[700px]">
+    <div class="flex flex-col lg:flex-row gap-8 bg-white rounded-3xl shadow-2xl overflow-hidden min-h-[750px] border border-slate-200">
         <!-- Sidebar -->
         <nav class="w-full lg:w-80 bg-slate-900 p-8 flex flex-col justify-between">
             <div class="space-y-4">
-                <button onclick="showStep(1)" class="step-btn w-full text-left px-5 py-4 rounded-xl transition-all flex items-center gap-4 bg-blue-600 text-white" id="btn-1">
-                    <span class="text-xs font-mono opacity-50">01</span>
+                <button onclick="showStep(1)" class="step-btn w-full text-left px-5 py-4 rounded-xl transition-all flex items-center gap-4 bg-blue-600 text-white shadow-lg" id="btn-1">
+                    <span class="text-xs font-mono opacity-50 text-blue-200">01</span>
                     <span class="font-bold">가상화 기반 다지기</span>
                 </button>
                 <button onclick="showStep(2)" class="step-btn w-full text-left px-5 py-4 rounded-xl transition-all flex items-center gap-4 text-slate-400 hover:bg-slate-800" id="btn-2">
@@ -47,98 +51,163 @@
                     <span class="font-bold">페르소나 및 실무 활용</span>
                 </button>
             </div>
-            <div class="mt-8 pt-6 border-t border-slate-800">
-                <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Guide v1.0 Production</p>
+            <div class="mt-8 pt-6 border-t border-slate-800 text-center">
+                <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Open CLO Guide v1.1</p>
             </div>
         </nav>
 
-        <!-- Main Content -->
-        <main class="flex-1 p-8 md:p-12 overflow-y-auto bg-slate-50">
+        <!-- Main Content Area -->
+        <main class="flex-1 p-8 md:p-12 overflow-y-auto bg-slate-50 relative">
+            
             <!-- Step 1 Content -->
-            <div id="step-1" class="step-content active animate-in fade-in duration-500">
-                <div class="mb-6 inline-flex p-4 bg-blue-100 rounded-2xl text-blue-600"><i data-lucide="power"></i></div>
-                <h2 class="text-3xl font-black mb-4">Step 01. 가상화 기반 다지기</h2>
-                <p class="text-lg text-slate-500 mb-8">가장 먼저 하드웨어가 리눅스를 받아들일 수 있도록 설정합니다.</p>
-                <div class="space-y-4">
-                    <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm flex gap-4">
-                        <div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs shrink-0">1</div>
-                        <p class="font-medium text-slate-700">관리자 권한으로 CMD 실행</p>
-                    </div>
-                    <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm flex gap-4">
-                        <div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs shrink-0">2</div>
-                        <p class="font-medium text-slate-700">명령어 입력: <code class="bg-slate-100 px-2 py-1 rounded">wsl --install</code></p>
-                    </div>
-                    <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm flex gap-4">
-                        <div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs shrink-0">3</div>
-                        <p class="font-medium text-slate-700 font-bold text-red-600">완료 후 반드시 시스템 재부팅</p>
+            <div id="step-1" class="step-content active animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="mb-6 inline-flex p-4 bg-blue-100 rounded-2xl text-blue-600 shadow-inner"><i data-lucide="cpu"></i></div>
+                <h2 class="text-3xl font-black mb-6 text-slate-900">Step 01. 가상화 기반 다지기</h2>
+                <div class="prose prose-slate max-w-none">
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">윈도우 안에서 리눅스가 원활하게 돌아갈 수 있도록 하드웨어 가상화와 WSL2 시스템을 활성화합니다.</p>
+                    
+                    <div class="space-y-6">
+                        <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <h3 class="text-xl font-bold mb-3 flex items-center gap-2 text-slate-800"><i data-lucide="terminal" class="w-5 h-5"></i> 가장 빠른 설치 (추천)</h3>
+                            <p class="text-sm text-slate-600 mb-4">관리자 권한으로 명령 프롬프트(CMD)를 열고 아래 명령어를 입력하세요.</p>
+                            <div class="code-block">wsl --install</div>
+                            <ul class="text-sm text-slate-600 list-disc pl-5 space-y-2 mt-4">
+                                <li>이 명령어는 가상화 기능 활성화, 리눅스 커널 업데이트, <b>Ubuntu 설치</b>를 한 번에 처리합니다.</li>
+                                <li>별도의 우분투 ISO 파일은 <b>절대 필요하지 않습니다.</b></li>
+                            </ul>
+                        </section>
+
+                        <div class="p-5 bg-red-50 rounded-2xl border border-red-100 flex gap-4">
+                            <i data-lucide="alert-triangle" class="text-red-500 shrink-0"></i>
+                            <div>
+                                <p class="font-bold text-red-900">필수 마무리: 시스템 재부팅</p>
+                                <p class="text-sm text-red-700">명령어 실행 후 반드시 컴퓨터를 다시 시작해야 설정이 적용됩니다. 재부팅 후 자동으로 나타나는 우분투 창에서 ID와 비밀번호를 설정하세요.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Step 2 Content -->
-            <div id="step-2" class="step-content animate-in fade-in duration-500">
-                <div class="mb-6 inline-flex p-4 bg-emerald-100 rounded-2xl text-emerald-600"><i data-lucide="terminal"></i></div>
-                <h2 class="text-3xl font-black mb-4">Step 02. 리눅스 내부 환경 구축</h2>
-                <p class="text-lg text-slate-500 mb-8">Ubuntu 터미널 내부에 개발 일꾼(Node, Python)을 배치합니다.</p>
-                <div class="space-y-4">
-                    <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm">
-                        <p class="font-bold text-slate-800 mb-2">Node.js & Python</p>
-                        <p class="text-sm text-slate-600">nvm을 통한 Node 설치 및 apt를 통한 Python 패키지 관리자 설치</p>
+            <div id="step-2" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="mb-6 inline-flex p-4 bg-emerald-100 rounded-2xl text-emerald-600 shadow-inner"><i data-lucide="terminal"></i></div>
+                <h2 class="text-3xl font-black mb-6 text-slate-900">Step 02. 리눅스 내부 환경 구축</h2>
+                <div class="prose prose-slate max-w-none">
+                    <p class="text-lg text-slate-600 mb-8">설치된 Ubuntu 터미널 내부에 에이전트 구동을 위한 핵심 도구들을 설치합니다.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="p-6 bg-white rounded-2xl shadow-sm border border-slate-200">
+                            <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2"><i data-lucide="box" class="w-4 h-4 text-emerald-500"></i> Node.js (JS 엔진)</h3>
+                            <p class="text-xs text-slate-500 mb-4">nvm(Node Version Manager) 사용 권장</p>
+                            <div class="code-block text-[10px]">sudo apt update<br>sudo apt install nodejs npm</div>
+                        </div>
+                        <div class="p-6 bg-white rounded-2xl shadow-sm border border-slate-200">
+                            <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2"><i data-lucide="file-code" class="w-4 h-4 text-blue-500"></i> Python 3</h3>
+                            <p class="text-xs text-slate-500 mb-4">데이터 처리 및 로직 구동용</p>
+                            <div class="code-block text-[10px]">sudo apt install python3-pip</div>
+                        </div>
                     </div>
-                    <div class="p-5 bg-white rounded-2xl border border-slate-200 shadow-sm">
-                        <p class="font-bold text-slate-800 mb-2">VS Code 연동</p>
-                        <p class="text-sm text-slate-600">WSL 확장팩 설치 후 터미널에서 'code .' 입력하여 연결</p>
+
+                    <div class="p-6 bg-slate-800 text-white rounded-2xl shadow-lg">
+                        <h3 class="font-bold mb-4 flex items-center gap-2"><i data-lucide="link" class="w-5 h-5"></i> VS Code 연결 방법</h3>
+                        <p class="text-sm text-slate-300 mb-4">윈도우에 깔린 VS Code를 리눅스와 연결하려면:</p>
+                        <ol class="text-sm space-y-2 list-decimal pl-5 text-slate-300">
+                            <li>VS Code 확장 탭에서 <b>'WSL'</b> 검색 후 설치</li>
+                            <li>우분투 터미널에서 작업 폴더로 이동 후 <code>code .</code> 입력</li>
+                            <li>윈도우 편집기에서 리눅스 내부 파일을 직접 수정 가능해집니다.</li>
+                        </ol>
                     </div>
                 </div>
             </div>
 
             <!-- Step 3 Content -->
-            <div id="step-3" class="step-content animate-in fade-in duration-500">
-                <div class="mb-6 inline-flex p-4 bg-orange-100 rounded-2xl text-orange-600"><i data-lucide="message-square"></i></div>
-                <h2 class="text-3xl font-black mb-4">Step 03. 설치 및 모바일 연동</h2>
-                <p class="text-lg text-slate-500 mb-8">오픈 클로 에이전트 설치와 텔레그램 페어링 단계입니다.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-6 bg-indigo-900 text-white rounded-2xl">
-                        <h3 class="font-bold mb-2">LLM 연동</h3>
-                        <p class="text-xs text-indigo-200">Claude / Gemini API Key를 발급받아 .env 파일에 저장</p>
-                    </div>
-                    <div class="p-6 bg-blue-500 text-white rounded-2xl">
-                        <h3 class="font-bold mb-2">Telegram Pairing</h3>
-                        <p class="text-xs text-blue-100">@BotFather 토큰 발급 후 모바일 앱과 연결</p>
+            <div id="step-3" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="mb-6 inline-flex p-4 bg-orange-100 rounded-2xl text-orange-600 shadow-inner"><i data-lucide="message-square"></i></div>
+                <h2 class="text-3xl font-black mb-6 text-slate-900">Step 03. 설치 및 모바일 연동</h2>
+                <div class="prose prose-slate max-w-none">
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">프로그램을 설치하고 외부 지능(LLM)과 원격 제어용 텔레그램을 연결합니다.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                            <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2"><i data-lucide="bot" class="w-5 h-5 text-purple-600"></i> 외부 AI(LLM) 연결</h3>
+                            <ul class="text-sm text-slate-600 space-y-3">
+                                <li class="flex justify-between items-center"><span><b>Claude:</b> console.anthropic.com</span> <a href="https://console.anthropic.com" target="_blank" class="text-blue-500 hover:underline">이동</a></li>
+                                <li class="flex justify-between items-center"><span><b>Gemini:</b> aistudio.google.com</span> <a href="https://aistudio.google.com" target="_blank" class="text-blue-500 hover:underline">이동</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
+                            <h3 class="font-bold text-blue-900 mb-4 flex items-center gap-2"><i data-lucide="smartphone" class="w-5 h-5"></i> 텔레그램 봇 토큰 발급 (상세)</h3>
+                            <ol class="text-sm text-blue-800 space-y-3 list-decimal pl-5">
+                                <li>텔레그램 앱에서 <b>@BotFather</b> 검색 후 시작</li>
+                                <li><code>/newbot</code> 입력 → 봇의 별명 입력 → 봇의 아이디 입력 (끝이 bot으로 끝나야 함)</li>
+                                <li>메시지 중 <code>1234567:ABC...</code> 형태의 긴 문자열(Token)을 복사</li>
+                                <li>프로젝트 폴더 내 <code>.env</code> 파일의 <code>TELEGRAM_TOKEN=</code> 자리에 붙여넣기</li>
+                            </ol>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Step 4 Content -->
-            <div id="step-4" class="step-content animate-in fade-in duration-500">
-                <div class="mb-6 inline-flex p-4 bg-indigo-100 rounded-2xl text-indigo-600"><i data-lucide="globe"></i></div>
-                <h2 class="text-3xl font-black mb-4">Step 04. 웹 접속 및 원격 제어</h2>
-                <p class="text-lg text-slate-500 mb-8">어디서든 접속 가능한 네트워크 환경을 설정합니다.</p>
-                <div class="bg-white p-6 rounded-2xl border-2 border-dashed border-slate-200">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="text-xs font-bold bg-slate-200 px-2 py-1 rounded">네트워크 모드</span>
-                        <span class="text-xs text-blue-600 font-mono">HOST=0.0.0.0</span>
+            <div id="step-4" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="mb-6 inline-flex p-4 bg-indigo-100 rounded-2xl text-indigo-600 shadow-inner"><i data-lucide="globe"></i></div>
+                <h2 class="text-3xl font-black mb-6 text-slate-900">Step 04. 웹 접속 및 원격 제어</h2>
+                <div class="prose prose-slate max-w-none">
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">내부 네트워크 접속과 외부 인터넷 접속을 설정합니다.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-5 bg-white rounded-2xl border border-slate-200">
+                                <h4 class="font-bold text-slate-800 mb-2">집 안에서 접속 (내부망)</h4>
+                                <p class="text-xs text-slate-500 mb-3">같은 공유기 와이파이 환경</p>
+                                <code class="text-[10px] text-blue-600">http://[내컴퓨터IP]:3000</code>
+                            </div>
+                            <div class="p-5 bg-white rounded-2xl border border-slate-200">
+                                <h4 class="font-bold text-slate-800 mb-2">밖에서 접속 (외부망)</h4>
+                                <p class="text-xs text-slate-500 mb-3">Cloudflare Tunnel 사용 권장</p>
+                                <code class="text-[10px] text-indigo-600">https://[생성된-터널-주소]</code>
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-slate-900 text-white rounded-2xl">
+                            <h3 class="font-bold mb-4 flex items-center gap-2 text-amber-400"><i data-lucide="settings-2" class="w-5 h-5"></i> 채널 스위칭 설정 (HOST)</h3>
+                            <p class="text-sm text-slate-300 mb-4">외부/원격 접속을 허용하려면 <code>.env</code> 파일의 HOST 설정을 변경해야 합니다.</p>
+                            <div class="code-block text-xs">HOST=0.0.0.0</div>
+                            <p class="text-[10px] text-slate-500 mt-2">* 127.0.0.1로 설정하면 외부 접속이 차단됩니다.</p>
+                        </div>
                     </div>
-                    <p class="text-sm text-slate-600 leading-relaxed italic">
-                        "집에서는 내부 IP로, 밖에서는 Cloudflare 터널링 주소를 사용하여 내 노트북 속의 AI와 끊김 없이 대화하세요."
-                    </p>
                 </div>
             </div>
 
             <!-- Step 5 Content -->
-            <div id="step-5" class="step-content animate-in fade-in duration-500">
-                <div class="mb-6 inline-flex p-4 bg-amber-100 rounded-2xl text-amber-600"><i data-lucide="settings"></i></div>
-                <h2 class="text-3xl font-black mb-4">Step 05. 페르소나 및 실무 활용</h2>
-                <p class="text-lg text-slate-500 mb-8">에이전트에게 자아를 부여하고 업무에 투입합니다.</p>
-                <div class="space-y-4">
-                    <div class="p-6 bg-amber-50 rounded-2xl border border-amber-200">
-                        <h3 class="font-bold text-amber-800 mb-3 flex items-center gap-2"><i data-lucide="save" class="w-4 h-4"></i> 시스템 메모리 설정</h3>
-                        <p class="text-sm text-amber-700 leading-relaxed">
-                            에이전트의 이름, 말투, 업무 원칙을 <code>system_prompt.txt</code>에 영구적으로 기록하여 매 대화마다 일관된 성능을 유지하도록 관리합니다.
-                        </p>
+            <div id="step-5" class="step-content animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="mb-6 inline-flex p-4 bg-amber-100 rounded-2xl text-amber-600 shadow-inner"><i data-lucide="sparkles"></i></div>
+                <h2 class="text-3xl font-black mb-6 text-slate-900">Step 05. 페르소나 및 실무 활용</h2>
+                <div class="prose prose-slate max-w-none">
+                    <p class="text-lg text-slate-600 mb-8">에이전트에게 자아를 부여하고 업무 원칙을 고정(Memory)시키는 단계입니다.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                            <h3 class="font-bold text-slate-800 mb-4">에이전트 이름 및 원칙 설정</h3>
+                            <div class="bg-slate-50 p-4 rounded-xl text-sm text-slate-600 italic leading-relaxed">
+                                "너의 이름은 '알파'야. 모든 답변은 한글로 간결하게 답변해줘. 코드를 짤 때는 반드시 주석을 달고, 모르는 것은 모른다고 말해줘."
+                            </div>
+                        </div>
+
+                        <div class="p-6 bg-amber-50 rounded-2xl border border-amber-100">
+                            <h3 class="font-bold text-amber-900 mb-4 flex items-center gap-2"><i data-lucide="brain-circuit" class="w-5 h-5"></i> 메모리 영구 저장 (System Prompt)</h3>
+                            <p class="text-sm text-amber-800 mb-4">대화창에서 가르치는 것은 휘발될 수 있습니다. 다음 위치의 파일을 수정하세요.</p>
+                            <ul class="text-xs text-amber-700 space-y-2 list-disc pl-5">
+                                <li><b>파일 위치:</b> <code>config/system_prompt.txt</code> (혹은 유사한 경로)</li>
+                                <li><b>반영 방법:</b> 에이전트의 성격과 지켜야 할 원칙을 텍스트로 저장</li>
+                                <li><b>효과:</b> 에이전트가 재시작되어도 설정된 페르소나를 유지합니다.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </main>
     </div>
 </div>
@@ -149,22 +218,40 @@
 
     function showStep(stepNum) {
         // Hide all contents
-        document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
-        // Show selected content
-        document.getElementById('step-1' + (stepNum === 1 ? '' : '-hidden')).id = 'temp'; // Avoid ID conflict if needed
-        // Simpler approach for this demo:
-        document.querySelectorAll('.step-content').forEach((el, idx) => {
-            if(idx + 1 === stepNum) el.classList.add('active');
+        document.querySelectorAll('.step-content').forEach(el => {
+            el.classList.remove('active');
         });
 
-        // Update Buttons
+        // Show selected content
+        const targetStep = document.getElementById('step-' + stepNum);
+        if (targetStep) {
+            targetStep.classList.add('active');
+        }
+
+        // Update Button Styling
         document.querySelectorAll('.step-btn').forEach(btn => {
-            btn.classList.remove('bg-blue-600', 'text-white');
+            btn.classList.remove('bg-blue-600', 'text-white', 'shadow-lg');
             btn.classList.add('text-slate-400', 'hover:bg-slate-800');
+            
+            // Remove highlighting from ID indicators
+            const span = btn.querySelector('.font-mono');
+            if (span) {
+                span.classList.remove('text-blue-200');
+                span.classList.add('opacity-50', 'text-slate-600');
+            }
         });
+
         const activeBtn = document.getElementById('btn-' + stepNum);
-        activeBtn.classList.add('bg-blue-600', 'text-white');
-        activeBtn.classList.remove('text-slate-400', 'hover:bg-slate-800');
+        if (activeBtn) {
+            activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-lg');
+            activeBtn.classList.remove('text-slate-400', 'hover:bg-slate-800');
+            
+            const activeSpan = activeBtn.querySelector('.font-mono');
+            if (activeSpan) {
+                activeSpan.classList.add('text-blue-200');
+                activeSpan.classList.remove('text-slate-600');
+            }
+        }
     }
 </script>
 
