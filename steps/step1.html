@@ -1,33 +1,164 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상세 가이드: Step 01</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;800&display=swap'); body { font-family: 'Pretendard', sans-serif; }</style>
-</head>
-<body class="bg-white text-slate-800 p-8">
-    <div class="max-w-3xl mx-auto">
-        <a href="../index.html" class="inline-flex items-center gap-2 text-blue-600 font-bold mb-8 hover:underline"><i data-lucide="arrow-left" class="w-4 h-4"></i> 메인으로 돌아가기</a>
-        <h1 class="text-4xl font-black mb-6">Step 01. 가상화 기반 상세 설명</h1>
-        <div class="space-y-8 text-lg leading-relaxed">
-            <section class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
-                <h2 class="text-xl font-bold mb-4 text-blue-700">1. 가상화(Virtualization)란?</h2>
-                <p>윈도우라는 땅 위에 리눅스라는 건물을 짓기 위한 '지반 공사'입니다. CPU가 이 기능을 지원해야만 WSL2가 정상적으로 작동합니다.</p>
-            </section>
-            <section>
-                <h2 class="text-xl font-bold mb-4">2. ISO 파일이 필요 없는 이유</h2>
-                <p>WSL은 마이크로소프트 서버에서 최적화된 우분투 패키지를 직접 내려받습니다. 수동으로 마운트하거나 설치할 필요 없이 <code>wsl --install</code> 한 줄이면 충분합니다.</p>
-            </section>
-            <section class="bg-red-50 p-6 rounded-2xl border border-red-100">
-                <h2 class="text-xl font-bold mb-4 text-red-700">3. 에러 발생 시 대처 (BIOS)</h2>
-                <p>만약 설치 중 에러가 난다면, 재부팅 시 F2나 Del 키를 눌러 BIOS 설정에 진입하세요. <b>Intel Virtual Technology</b> 혹은 <b>SVM Mode</b>를 <b>Enabled</b>로 변경해야 합니다.</p>
-            </section>
+import React, { useState } from 'react';
+import { 
+  Terminal, 
+  Settings, 
+  CheckCircle2, 
+  AlertCircle,
+  RefreshCw,
+  Power,
+  ChevronRight,
+  ChevronLeft,
+  Info,
+  PackageCheck,
+  ShieldAlert,
+  HelpCircle
+} from 'lucide-react';
+
+const App = () => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const steps = [
+    {
+      id: "concept",
+      title: "WSL은 ISO가 필요 없습니다!",
+      icon: <HelpCircle className="w-8 h-8 text-pink-500" />,
+      desc: "많은 분들이 리눅스 설치를 위해 ISO 파일을 찾으시지만, WSL은 방식이 완전히 다릅니다.",
+      items: [
+        "ISO 설치: 컴퓨터 전체를 새로 구성하는 무거운 방식 (VM)",
+        "WSL 설치: 윈도우의 '앱'처럼 리눅스를 설치하는 가벼운 방식",
+        "결론: 별도의 다운로드 없이 명령어 한 줄로 자동 해결됩니다."
+      ]
+    },
+    {
+      id: "mechanism",
+      title: "wsl --install의 올인원 프로세스",
+      icon: <PackageCheck className="w-8 h-8 text-amber-500" />,
+      desc: "이 명령어는 마이크로소프트 서버에서 검증된 우분투 파일을 자동으로 가져옵니다.",
+      items: [
+        "1. 가상화 기능(VMP) 자동 활성화",
+        "2. 리눅스 구동용 최신 커널 자동 설치",
+        "3. Microsoft Store를 통한 우분투 자동 다운로드",
+        "사용자가 수동으로 파일을 마운트할 필요가 없습니다."
+      ]
+    },
+    {
+      id: "error",
+      title: "혹시 에러가 발생한다면? (Troubleshooting)",
+      icon: <ShieldAlert className="w-8 h-8 text-red-500" />,
+      desc: "명령어 실행 중 에러가 난다면 하드웨어 설정을 확인해야 합니다.",
+      items: [
+        "체크 1: 노트북 BIOS 설정에서 'Virtualization'이 Enabled인가?",
+        "체크 2: 윈도우 업데이트가 최신 상태인가?",
+        "체크 3: 인터넷 연결이 Microsoft 서버를 차단하고 있지 않은가?"
+      ]
+    },
+    {
+      id: "method",
+      title: "실행 방법: 다시 확인하기",
+      icon: <Terminal className="w-8 h-8 text-green-500" />,
+      desc: "모든 준비가 되었다면 '관리자 권한'으로 딱 한 줄만 입력하세요.",
+      items: [
+        "1. CMD(명령 프롬프트)를 '관리자 권한'으로 열기",
+        "2. wsl --install 입력 후 엔터",
+        "3. 설치 완료 메시지 확인 후 반드시 '재부팅'"
+      ]
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 md:p-8 font-sans">
+      <div className="max-w-5xl w-full bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row border border-gray-100">
+        
+        {/* Left Nav */}
+        <div className="w-full md:w-80 bg-slate-900 p-6 flex flex-col justify-between text-slate-300">
+          <div>
+            <div className="flex items-center gap-3 text-white mb-10 p-2">
+              <div className="bg-blue-600 p-2 rounded-lg">
+                <Power className="w-5 h-5" />
+              </div>
+              <span className="font-bold text-xl tracking-tight">Step 1 Detail</span>
+            </div>
+            <div className="space-y-1">
+              {steps.map((s, idx) => (
+                <button
+                  key={s.id}
+                  onClick={() => setActiveTab(idx)}
+                  className={`w-full text-left px-4 py-3 rounded-xl transition-all flex items-center gap-3 ${
+                    activeTab === idx 
+                    ? 'bg-blue-600/10 text-blue-400 border border-blue-600/20' 
+                    : 'hover:bg-slate-800'
+                  }`}
+                >
+                  <span className={`text-xs font-mono ${activeTab === idx ? 'text-blue-400' : 'text-slate-500'}`}>0{idx + 1}</span>
+                  <span className="font-medium text-sm">{s.title}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="mt-8 p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 text-xs leading-relaxed">
+            <p className="flex items-center gap-2 mb-2 text-blue-400 font-semibold">
+              <AlertCircle className="w-3 h-3" /> Note
+            </p>
+            ISO 파일을 직접 마운트하는 방식은 WSL이 아닌 '가상 머신(VM)' 방식입니다. WSL에서는 절대 권장하지 않습니다.
+          </div>
         </div>
-        <a href="../index.html" class="block w-full text-center py-4 bg-slate-900 text-white font-bold rounded-2xl mt-12">설명 정독 완료 (메인으로)</a>
+
+        {/* Right Content */}
+        <div className="flex-1 p-8 md:p-12 bg-white flex flex-col">
+          <div className="mb-6 flex items-center justify-between">
+             <div className="p-3 bg-gray-50 rounded-2xl">
+               {steps[activeTab].icon}
+             </div>
+             <span className="px-4 py-1 bg-blue-50 text-blue-600 rounded-full text-xs font-bold uppercase tracking-widest">
+               Phase {activeTab + 1}
+             </span>
+          </div>
+
+          <h2 className="text-3xl font-black text-slate-900 mb-4 leading-tight">
+            {steps[activeTab].title}
+          </h2>
+          
+          <p className="text-lg text-slate-500 mb-8 leading-relaxed">
+            {steps[activeTab].desc}
+          </p>
+
+          <div className="grid gap-3 mb-auto">
+            {steps[activeTab].items.map((item, i) => (
+              <div key={i} className="flex items-center gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100 group hover:border-blue-200 hover:bg-blue-50/30 transition-all">
+                <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center text-xs font-bold text-slate-400 border border-slate-200 group-hover:border-blue-300 group-hover:text-blue-500">
+                  {i + 1}
+                </div>
+                <span className="text-slate-700 font-medium">{item}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 flex items-center justify-between pt-6 border-t border-slate-100">
+            <button 
+              onClick={() => setActiveTab(Math.max(0, activeTab - 1))}
+              className={`flex items-center gap-2 text-sm font-bold ${activeTab === 0 ? 'text-gray-300' : 'text-slate-600 hover:text-blue-600'}`}
+              disabled={activeTab === 0}
+            >
+              <ChevronLeft className="w-5 h-5" /> 이전
+            </button>
+            <div className="flex gap-2">
+              {steps.map((_, i) => (
+                <div key={i} className={`h-1.5 rounded-full transition-all ${activeTab === i ? 'w-8 bg-blue-600' : 'w-2 bg-slate-200'}`} />
+              ))}
+            </div>
+            <button 
+              onClick={() => setActiveTab(Math.min(steps.length - 1, activeTab + 1))}
+              className={`flex items-center gap-2 text-sm font-bold ${activeTab === steps.length - 1 ? 'text-gray-300' : 'text-slate-600 hover:text-blue-600'}`}
+              disabled={activeTab === steps.length - 1}
+            >
+              다음 <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <script>lucide.createIcons();</script>
-</body>
-</html>
+  );
+};
+
+export default App;
